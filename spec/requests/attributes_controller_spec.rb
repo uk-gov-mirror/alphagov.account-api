@@ -90,7 +90,10 @@ RSpec.describe AttributesController do
         it "lists the undefined ones" do
           get attributes_path, headers: headers, params: params
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(JSON.parse(response.body)["attributes"]).to eq(bad_attributes)
+
+          error = JSON.parse(response.body)
+          expect(error["type"]).to eq(I18n.t("errors.unknown_attribute_names.type"))
+          expect(error["attributes"]).to eq(bad_attributes)
         end
       end
     end

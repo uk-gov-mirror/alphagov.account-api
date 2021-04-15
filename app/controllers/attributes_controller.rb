@@ -71,9 +71,9 @@ private
     if undefined.any?
       render status: :unprocessable_entity, json:
         {
-          type: "https://github.com/alphagov/account-api/blob/main/docs/api.md#unknown-attribute-names",
-          title: "Unknown attribute names",
-          detail: "Attribute names #{undefined.join(', ')} are unknown, have they been added to config/user_attributes.yml?",
+          type: I18n.t("errors.unknown_attribute_names.type"),
+          title: I18n.t("errors.unknown_attribute_names.title"),
+          detail: I18n.t("errors.unknown_attribute_names.detail", attribute_names: undefined.join(", ")),
           attributes: undefined,
         }
       return false
