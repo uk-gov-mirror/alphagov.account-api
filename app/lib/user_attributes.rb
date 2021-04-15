@@ -26,9 +26,11 @@ class UserAttributes
 
       missing_keys = CONFIG_KEYS.reject { |key| config.keys.include? key }
       unknown_keys = config.keys.reject { |key| CONFIG_KEYS.include? key }
-      invalid_keys = [
-        [nil, true, false].include?(config["is_stored_locally"]) ? nil : :is_stored_locally,
-      ].compact
+
+      invalid_keys = []
+      unless config["is_stored_locally"].in?([nil, false, true])
+        invalid_keys << :is_stored_locally
+      end
 
       this_errors = {
         missing_keys: missing_keys.any? ? missing_keys : nil,
