@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 module SessionHeaderHelper
-  def to_account_session(access_token:, refresh_token:)
+  LOWEST_LEVEL_OF_AUTHENTICATION = "level0"
+
+  def to_account_session(access_token:, refresh_token:, level_of_authentication:)
     SessionEncryptor
       .new(session_signing_key: Rails.application.secrets.session_signing_key)
       .encrypt_session(
         access_token: access_token,
         refresh_token: refresh_token,
+        level_of_authentication: level_of_authentication || LOWEST_LEVEL_OF_AUTHENTICATION,
       )
   end
 
@@ -26,6 +31,7 @@ module SessionHeaderHelper
       {
         access_token: Base64.urlsafe_decode64(bits[0]),
         refresh_token: Base64.urlsafe_decode64(bits[1]),
+        level_of_authentication: LOWEST_LEVEL_OF_AUTHENTICATION,
       }
     end
   rescue ArgumentError

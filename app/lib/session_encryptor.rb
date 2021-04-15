@@ -5,11 +5,12 @@ class SessionEncryptor
     @session_signing_key = session_signing_key
   end
 
-  def encrypt_session(access_token:, refresh_token:)
+  def encrypt_session(access_token:, refresh_token:, level_of_authentication:)
     encrypt_string(
       {
         access_token: access_token,
         refresh_token: refresh_token,
+        level_of_authentication: level_of_authentication,
       }.to_json,
     )
   end
