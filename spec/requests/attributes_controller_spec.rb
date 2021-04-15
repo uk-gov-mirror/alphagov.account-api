@@ -3,10 +3,10 @@ RSpec.describe AttributesController do
 
   let(:headers) { { "Content-Type" => "application/json", "GOVUK-Account-Session" => placeholder_govuk_account_session } }
 
-  let(:attribute_name1) { "name" }
+  let(:attribute_name1) { "foo" }
   let(:attribute_value1) { { "some" => "complex", "value" => 42 } }
 
-  let(:attribute_name2) { "name2" }
+  let(:attribute_name2) { "bar" }
   let(:attribute_value2) { [1, 2, 3, 4, 5] }
 
   describe "GET" do

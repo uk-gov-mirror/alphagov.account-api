@@ -1,0 +1,5 @@
+foo:
+  is_stored_locally: false
+
+bar:
+  is_stored_locally: false
