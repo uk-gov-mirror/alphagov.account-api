@@ -6,7 +6,7 @@ class UserAttributes
   def initialize
     @attributes = YAML.safe_load(File.read(Rails.root.join("config/user_attributes.yml"))).with_indifferent_access
 
-    unless Rails.env.production?
+    if Rails.env.test?
       test_attributes = YAML.safe_load(File.read(Rails.root.join("spec/fixtures/user_attributes.yml"))).with_indifferent_access
       @attributes.merge!(test_attributes)
     end
