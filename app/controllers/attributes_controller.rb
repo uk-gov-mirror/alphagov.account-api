@@ -69,7 +69,13 @@ private
   def validate_attributes(names)
     undefined = names.reject { |n| user_attributes.defined? n }
     if undefined.any?
-      render json: { title: "undefined attributes", detail: undefined }, status: :unprocessable_entity
+      render status: :unprocessable_entity, json:
+        {
+          type: "https://github.com/alphagov/account-api/blob/main/docs/api.md#unknown-attribute-names",
+          title: "Unknown attribute names",
+          detail: "Attribute names #{undefined.join(', ')} are unknown, have they been added to config/user_attributes.yml?",
+          attributes: undefined,
+        }
       return false
     end
 
