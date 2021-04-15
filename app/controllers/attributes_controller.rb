@@ -40,8 +40,8 @@ class AttributesController < ApplicationController
     access_token = @govuk_account_session[:access_token]
     refresh_token = @govuk_account_session[:refresh_token]
 
-    local_attributes = attributes.select { |name, _| user_attributes.stored_locally? name }
-    remote_attributes = attributes.reject { |name, _| user_attributes.stored_locally? name }
+    local_attributes = attributes.select { |name| user_attributes.stored_locally? name }
+    remote_attributes = attributes.reject { |name| user_attributes.stored_locally? name }
 
     if local_attributes.any?
       raise NotImplementedError
